@@ -1,18 +1,44 @@
-/** @type {import('tailwindcss').Config} */
 module.exports = {
   content: [
-    './pages/**/*.{js,ts,jsx,tsx,mdx}',
-    './components/**/*.{js,ts,jsx,tsx,mdx}',
-    './app/**/*.{js,ts,jsx,tsx,mdx}',
+    "./pages/**/*.{js,ts,jsx,tsx}",
+    "./components/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
+    fontFamily: {
+      PoppinsBlack: ["PoppinsBlack", "sans-serif"],
+      PoppinsBold: ["PoppinsBold", "sans-serif"],
+      PoppinsExtraBold: ["PoppinsExtraBold", "sans-serif"],
+      PoppinsExtraLight: ["PoppinsExtraLight", "sans-serif"],
+      PoppinsLight: ["PoppinsLight", "sans-serif"],
+      PoppinsMedium: ["PoppinsMedium", "sans-serif"],
+      PoppinsRegular: ["PoppinsRegular", "sans-serif"],
+      PoppinsSemiBold: ["PoppinsSemiBold", "sans-serif"],
+      PoppinsThin: ["PoppinsThin", "sans-serif"],
+    },
     extend: {
-      backgroundImage: {
-        'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
-        'gradient-conic':
-          'conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))',
+      colors: {
+        primaryBg: "#4a88d8",
+        secondaryBg: "#f5b20b",
+        tertiaryBg: "#ca9d2c",
+        sidebarBg: "#243d5c",
+        sidebarHover: "#133259",
+        paperRoot: "#ffffff",
+        paperPrimary: "#f3efec",
+        paperSecondary: "#e3ddd8",
+        paperTertiary: "#887f78",
+        primaryText: "#243d5c",
+        secondaryText: "#000000",
+        tertiaryText: "#ca9d2c",
+        hintText: "#f28925",
+        error: "#f22435",
+        success: "#4bb543",
+        inverse: "#ffffff",
+        rootHover: "#fff6df",
+        landingSecondaryBg: "#FDF0CE",
+        landingShapeGreen: "#6BDBBE",
+        landingShapePurple: "#6351C3",
       },
     },
   },
   plugins: [],
-}
+};
