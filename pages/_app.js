@@ -6,7 +6,7 @@ const MyApp = ({ Component, pageProps }) => {
   return (
     <SessionProvider session={pageProps.session}>
       <ThemeContextProvider>
-        <Component {...pageProps} />;
+        <Component {...pageProps} />
       </ThemeContextProvider>
     </SessionProvider>
   );

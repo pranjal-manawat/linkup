@@ -2,10 +2,10 @@ import React from "react";
 import { Input, Text, Button } from "../../components/common";
 import { useForm } from "react-hook-form";
 import { useRouter } from "next/router";
-import { useSession } from "next-auth/react";
 import { signIn } from "next-auth/react";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
+import { getData } from "../../utils/rest";
 
 const loginValidationSchema = yup.object().shape({
   email: yup.string().required("Email is required"),
@@ -14,7 +14,6 @@ const loginValidationSchema = yup.object().shape({
 
 const LoginPage = () => {
   const router = useRouter();
-  const { data: session } = useSession();
   const {
     register,
     handleSubmit,
@@ -28,16 +27,22 @@ const LoginPage = () => {
     resolver: yupResolver(loginValidationSchema),
   });
 
-  const onSubmit = async (data) => {
+  const onSubmit = async (payload) => {
     const status = await signIn("credentials", {
       redirect: false,
-      email: data.email,
-      password: data.password,
-      callbackUrl: "/dashboard",
+      email: payload.email,
+      password: payload.password,
+      callbackUrl: "/adminDashboard",
     });
 
     if (status.ok) {
-      router.push("/dashboard");
+      const url = `http://localhost:5000/employeeRecord?email=${payload.email}`;
+      const { data } = await getData(url);
+      const employeeData = data?.data
+      if(employeeData.isAdmin === 'true')
+        router.push("/adminDashboard");
+      else
+        router.push("/home")
     } else {
       console.error("Error ", status.error);
     }

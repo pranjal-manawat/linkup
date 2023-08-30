@@ -14,7 +14,7 @@ const Button = ({ onClick, color, style, className = '', text = '', type = 'butt
         color={color}
         style={style}
         type={type}
-        class={classes}
+        className={classes}
       >
         {text}
       </button>

@@ -27,7 +27,7 @@ const Input = forwardRef((props, ref) => {
         <input
           type={type}
           placeholder={placeholder}
-          class={classes}
+          className={classes}
           ref={ref}
           {...rest}
         />

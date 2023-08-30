@@ -1,7 +1,7 @@
 import status from "../statuses";
 import axios from "axios";
 
-const getData = (path, data, headers) => {
+const getData = (path, data = {}, headers) => {
   const options = {
     method: "GET",
     headers: { "content-type": "application/json", ...headers },

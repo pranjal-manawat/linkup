@@ -22,7 +22,7 @@ const signUpValidationSchema = yup.object().shape({
     }),
 });
 
-const HomePage = () => {
+const SignUpPage = () => {
   const router = useRouter();
   const {
     register,
@@ -42,7 +42,7 @@ const HomePage = () => {
   const postSignupData = async (payload) => {
     try {
       const url = "http://localhost:5000/signup";
-      const { success, error, data } = postData(url, payload, {});
+      const { success, error, data } = postData(url, {...payload, isAdmin: 'false'}, {});
 
       if (success) {
         console.log("Response ", data.message);
@@ -119,4 +119,4 @@ const HomePage = () => {
   );
 };
 
-export default HomePage;
+export default SignUpPage;
