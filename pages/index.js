@@ -42,10 +42,11 @@ const SignUpPage = () => {
   const postSignupData = async (payload) => {
     try {
       const url = "http://localhost:5000/signup";
-      const { success, error, data } = postData(url, {...payload, isAdmin: 'false'}, {});
+      const { success, error, data } = await postData(url, {...payload, isAdmin: 'false'}, {});
 
       if (success) {
         console.log("Response ", data.message);
+        router.push("login")
       } else {
         console.error("Error ", error);
       }

@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from "react";
-import { Table, Modal, Input, Button } from "../../components/common";
+import { Modal, Input, Button, Header } from "../../components/common";
 import { useSession } from "next-auth/react";
 import { useForm } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { getData, postData } from "../../utils/rest";
+import EmployeeTable from "./EmployeeTable";
 
 const AdminDashboard = () => {
   const { data: session } = useSession();
@@ -56,11 +57,11 @@ const AdminDashboard = () => {
     });
 
     const addPoints = async (payload) => {
-      setOpenPointsModal(false)
+      setOpenPointsModal(false);
       try {
         const url = "http://localhost:5000/addPoints";
         const { success, error, data } = postData(url, payload, {});
-  
+
         if (success) {
           console.log("Response ", data.message);
         } else {
@@ -69,15 +70,15 @@ const AdminDashboard = () => {
       } catch (error) {
         console.error("Error while adding points ", error);
       }
-      fetchEmployeesData()
+      fetchEmployeesData();
     };
 
     const removePoints = async (payload) => {
-      setOpenPointsModal(false)
+      setOpenPointsModal(false);
       try {
         const url = "http://localhost:5000/removePoints";
         const { success, error, data } = postData(url, payload, {});
-  
+
         if (success) {
           console.log("Response ", data.message);
         } else {
@@ -86,52 +87,54 @@ const AdminDashboard = () => {
       } catch (error) {
         console.error("Error while removing points ", error);
       }
-      fetchEmployeesData()
+      fetchEmployeesData();
     };
 
     const onSubmit = async (data, e) => {
       e.preventDefault();
-      if (e.nativeEvent.submitter.innerHTML === "Add Points") 
-        await addPoints({...data, userId: activeUserId})
-      else if (e.nativeEvent.submitter.innerHTML === "Remove Points") 
-        await removePoints({...data, userId: activeUserId})
+      if (e.nativeEvent.submitter.innerHTML === "Add Points")
+        await addPoints({ ...data, userId: activeUserId });
+      else if (e.nativeEvent.submitter.innerHTML === "Remove Points")
+        await removePoints({ ...data, userId: activeUserId });
     };
 
     return (
-      <form onSubmit={handleSubmit(onSubmit)} className="max-w-inherit">
-        <Input
-          label="Points"
-          type="number"
-          placeholder="Enter value"
-          className=""
-          {...register("points")}
-          itemRequired
-          errorMessage={errors?.points?.message}
-        />
-        <Input
-          label="Description"
-          type="text"
-          placeholder="Enter value"
-          className=""
-          {...register("description")}
-          itemRequired
-          errorMessage={errors?.description?.message}
-        />
-        <div className="inline-flex mt-4">
-          <Button
-            text="Add Points"
-            className="pl-12 pr-12"
-            type="submit"
-            name="add"
+      <>
+        <form onSubmit={handleSubmit(onSubmit)} className="max-w-inherit">
+          <Input
+            label="Points"
+            type="number"
+            placeholder="Enter value"
+            className=""
+            {...register("points")}
+            itemRequired
+            errorMessage={errors?.points?.message}
           />
-          <Button
-            text="Remove Points"
-            className="ml-3 pl-10 pr-10"
-            type="submit"
-            name="remove"
+          <Input
+            label="Description"
+            type="text"
+            placeholder="Enter value"
+            className=""
+            {...register("description")}
+            itemRequired
+            errorMessage={errors?.description?.message}
           />
-        </div>
-      </form>
+          <div className="inline-flex mt-4">
+            <Button
+              text="Add Points"
+              className="pl-12 pr-12"
+              type="submit"
+              name="add"
+            />
+            <Button
+              text="Remove Points"
+              className="ml-3 pl-10 pr-10"
+              type="submit"
+              name="remove"
+            />
+          </div>
+        </form>
+      </>
     );
   };
 
@@ -144,7 +147,7 @@ const AdminDashboard = () => {
   }
   return (
     <>
-      <Table
+      <EmployeeTable
         employeesData={employeesData}
         handleUpdatePointsClick={handleUpdatePointsClick}
       />
@@ -155,6 +158,9 @@ const AdminDashboard = () => {
         title="Update Points Modal"
         className="w-[30%]"
       />
+      <div className="mt-40">
+        <Header />
+      </div>
     </>
   );
 };

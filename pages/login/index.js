@@ -39,7 +39,8 @@ const LoginPage = () => {
       const url = `http://localhost:5000/employeeRecord?email=${payload.email}`;
       const { data } = await getData(url);
       const employeeData = data?.data
-      if(employeeData.isAdmin === 'true')
+      if(!employeeData) return
+      if(employeeData?.isAdmin === 'true')
         router.push("/adminDashboard");
       else
         router.push("/home")
