@@ -20,29 +20,29 @@ const PointsHistoryTable = ({ pointsHistoryData = [] }) => {
             </tr>
           </thead>
           <tbody>
-            {pointsHistoryData &&
-              pointsHistoryData.length &&
-              pointsHistoryData.map((pointHistory, index) => {
-                return (
-                  <tr
-                    key={index}
-                    class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600"
-                  >
-                    <th
-                      scope="row"
-                      class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+            {pointsHistoryData && pointsHistoryData.length
+              ? pointsHistoryData.map((pointHistory, index) => {
+                  return (
+                    <tr
+                      key={index}
+                      class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600"
                     >
-                      {pointHistory.points}
-                    </th>
-                    <td class="px-6 py-4">{pointHistory.description}</td>
-                    <td class="px-6 py-4">
-                      {pointHistory.operationType === "add"
-                        ? "Added"
-                        : "Deducted"}
-                    </td>
-                  </tr>
-                );
-              })}
+                      <th
+                        scope="row"
+                        class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+                      >
+                        {pointHistory.points}
+                      </th>
+                      <td class="px-6 py-4">{pointHistory.description}</td>
+                      <td class="px-6 py-4">
+                        {pointHistory.operationType === "add"
+                          ? "Added"
+                          : "Deducted"}
+                      </td>
+                    </tr>
+                  );
+                })
+              : null}
           </tbody>
         </table>
       </div>
