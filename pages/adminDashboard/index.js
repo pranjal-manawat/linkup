@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
-import { Modal, Input, Button, Header } from "../../components/common";
+import { Modal, Input, Button, Header, Text } from "../../components/common";
 import { useSession } from "next-auth/react";
+import { useRouter } from "next/router";
 import { useForm } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -8,6 +9,7 @@ import { getData, postData } from "../../utils/rest";
 import EmployeeTable from "./EmployeeTable";
 
 const AdminDashboard = () => {
+  const router = useRouter();
   const { data: session } = useSession();
   const [employeesData, setEmployeesData] = useState([]);
   const [openPointsModal, setOpenPointsModal] = useState(false);
@@ -60,7 +62,7 @@ const AdminDashboard = () => {
       setOpenPointsModal(false);
       try {
         const url = "http://localhost:5000/addPoints";
-        const { success, error, data } = postData(url, payload, {});
+        const { success, error, data } = await postData(url, payload, {});
 
         if (success) {
           console.log("Response ", data.message);
@@ -93,9 +95,9 @@ const AdminDashboard = () => {
     const onSubmit = async (data, e) => {
       e.preventDefault();
       if (e.nativeEvent.submitter.innerHTML === "Add Points")
-        await addPoints({ ...data, userId: activeUserId });
+        await addPoints({ ...data, userId: activeUserId, createdByUser: session?.user?.details?.email });
       else if (e.nativeEvent.submitter.innerHTML === "Remove Points")
-        await removePoints({ ...data, userId: activeUserId });
+        await removePoints({ ...data, userId: activeUserId, createdByUser: session?.user?.details?.email });
     };
 
     return (
@@ -143,7 +145,19 @@ const AdminDashboard = () => {
   }, []);
 
   if (!session) {
-    return <>No active session. Please log in.</>;
+    return (
+      <div className="flex justify-center mt-[20%]">
+        <Text variant="h4">
+          No active session. Please
+          <span
+            className="text-primaryBg underline underline-offset-4 cursor-pointer"
+            onClick={() => router.push("login")}
+          >
+            Log In
+          </span>
+        </Text>
+      </div>
+    );
   }
   return (
     <>

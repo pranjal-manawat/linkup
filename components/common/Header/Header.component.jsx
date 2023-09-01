@@ -16,7 +16,7 @@ const Header = () => {
   };
 
   return (
-    <div className="flex justify-end mt-2 mb-2 mr-10">
+    <div className="absolute bottom-3 right-3">
       <Button type="button" text="Log Out" onClick={signOutAndRedirect} />
     </div>
   );

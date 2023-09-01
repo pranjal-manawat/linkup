@@ -1,7 +1,15 @@
 import React from "react";
 import PropTypes from "prop-types";
+import { format } from 'date-fns';
 
 const PointsHistoryTable = ({ pointsHistoryData = [] }) => {
+
+  const getFormattedDate = (dateString) => {
+    const date = new Date(dateString)
+    const formattedDate = format(date, 'dd/MM/yyyy');
+    return formattedDate
+  }
+
   return (
     <>
       <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
@@ -15,7 +23,13 @@ const PointsHistoryTable = ({ pointsHistoryData = [] }) => {
                 Description
               </th>
               <th scope="col" class="px-6 py-3">
-                Type
+                Updated By
+              </th>
+              <th scope="col" class="px-6 py-3">
+                Date
+              </th>
+              <th scope="col" class="px-6 py-3">
+                Updation Type
               </th>
             </tr>
           </thead>
@@ -34,6 +48,8 @@ const PointsHistoryTable = ({ pointsHistoryData = [] }) => {
                         {pointHistory.points}
                       </th>
                       <td class="px-6 py-4">{pointHistory.description}</td>
+                      <td class="px-6 py-4">{pointHistory.createdByUser}</td>
+                      <td class="px-6 py-4">{getFormattedDate(pointHistory.timestamp)}</td>
                       <td class="px-6 py-4">
                         {pointHistory.operationType === "add"
                           ? "Added"

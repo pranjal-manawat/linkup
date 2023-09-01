@@ -2,9 +2,11 @@ import React, { useEffect, useState } from "react";
 import { Text, Button, Header } from "../../components/common";
 import PointsHistoryTable from "./PointsHistoryTable";
 import { useSession } from "next-auth/react";
+import { useRouter } from "next/router";
 import { getData } from "../../utils/rest";
 
 const HomePage = () => {
+  const router = useRouter();
   const { data: session } = useSession();
   const userId = session?.user?.details?.Id || null;
   const [points, setPoints] = useState(null);
@@ -36,6 +38,22 @@ const HomePage = () => {
     fetchPoints(userId);
     fetchPointsHistory(userId);
   }, [userId]);
+
+  if (!session) {
+    return (
+      <div className="flex justify-center mt-[20%]">
+        <Text variant="h4">
+          No active session. Please
+          <span
+            className="text-primaryBg underline underline-offset-4 cursor-pointer"
+            onClick={() => router.push("login")}
+          >
+            Log In
+          </span>
+        </Text>
+      </div>
+    );
+  }
 
   return (
     <>
