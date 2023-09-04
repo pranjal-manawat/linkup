@@ -150,7 +150,7 @@ const AdminDashboard = () => {
         <Text variant="h4">
           No active session. Please
           <span
-            className="text-primaryBg underline underline-offset-4 cursor-pointer"
+            className="text-primaryBg underline underline-offset-4 cursor-pointer ml-1"
             onClick={() => router.push("login")}
           >
             Log In
