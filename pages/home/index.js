@@ -46,7 +46,7 @@ const HomePage = () => {
           No active session. Please
           <span
             className="text-primaryBg underline underline-offset-4 cursor-pointer ml-1"
-            onClick={() => router.push("login")}
+            onClick={() => router.push("/")}
           >
             Log In
           </span>
@@ -57,6 +57,7 @@ const HomePage = () => {
 
   return (
     <>
+      <Header />
       <div className="flex justify-center p-2">
         <div className="mt-4">
           <div>
@@ -72,9 +73,6 @@ const HomePage = () => {
         </div>
       </div>
       <PointsHistoryTable pointsHistoryData={pointsHistory} />
-      <div className="mt-40">
-        <Header />
-      </div>
     </>
   );
 };

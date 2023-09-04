@@ -7,20 +7,26 @@ import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { getData, postData } from "../../utils/rest";
 import EmployeeTable from "./EmployeeTable";
+import CreateUserForm from "./CreateUserForm";
+import { toast } from "react-hot-toast";
 
 const AdminDashboard = () => {
   const router = useRouter();
   const { data: session } = useSession();
   const [employeesData, setEmployeesData] = useState([]);
   const [openPointsModal, setOpenPointsModal] = useState(false);
+  const [openNewUserModal, setOpenNewUserPointsModal] = useState(false);
   const [activeUserId, setActiveUserId] = useState(null);
+  const [loading, setLoading] = useState(true);
 
   const fetchEmployeesData = async () => {
     try {
+      setLoading(true);
       const url = "http://localhost:5000/allEmployeeRecords";
       const { data } = await getData(url);
       const employeeRecords = data?.data || [];
       setEmployeesData(employeeRecords);
+      setLoading(false);
     } catch (e) {
       console.error("Error in fetching Employee records ", e);
     }
@@ -66,11 +72,12 @@ const AdminDashboard = () => {
 
         if (success) {
           console.log("Response ", data.message);
+          toast.success("Points Added Successfully");
         } else {
-          console.error("Error ", error);
+          toast.error("Error ", error);
         }
       } catch (error) {
-        console.error("Error while adding points ", error);
+        toast.error("Error while adding points ", error);
       }
       fetchEmployeesData();
     };
@@ -79,15 +86,16 @@ const AdminDashboard = () => {
       setOpenPointsModal(false);
       try {
         const url = "http://localhost:5000/removePoints";
-        const { success, error, data } = postData(url, payload, {});
+        const { success, error, data } = await postData(url, payload, {});
 
         if (success) {
           console.log("Response ", data.message);
+          toast.success("Points Removed Successfully");
         } else {
-          console.error("Error ", error);
+          toast.error("Error ", error);
         }
       } catch (error) {
-        console.error("Error while removing points ", error);
+        toast.error("Error while removing points ", error);
       }
       fetchEmployeesData();
     };
@@ -95,9 +103,17 @@ const AdminDashboard = () => {
     const onSubmit = async (data, e) => {
       e.preventDefault();
       if (e.nativeEvent.submitter.innerHTML === "Add Points")
-        await addPoints({ ...data, userId: activeUserId, createdByUser: session?.user?.details?.email });
+        await addPoints({
+          ...data,
+          userId: activeUserId,
+          createdByUser: session?.user?.details?.email,
+        });
       else if (e.nativeEvent.submitter.innerHTML === "Remove Points")
-        await removePoints({ ...data, userId: activeUserId, createdByUser: session?.user?.details?.email });
+        await removePoints({
+          ...data,
+          userId: activeUserId,
+          createdByUser: session?.user?.details?.email,
+        });
     };
 
     return (
@@ -151,7 +167,7 @@ const AdminDashboard = () => {
           No active session. Please
           <span
             className="text-primaryBg underline underline-offset-4 cursor-pointer ml-1"
-            onClick={() => router.push("login")}
+            onClick={() => router.push("/")}
           >
             Log In
           </span>
@@ -161,10 +177,14 @@ const AdminDashboard = () => {
   }
   return (
     <>
-      <EmployeeTable
-        employeesData={employeesData}
-        handleUpdatePointsClick={handleUpdatePointsClick}
-      />
+      <Header />
+      {!loading ? (
+        <EmployeeTable
+          employeesData={employeesData}
+          handleUpdatePointsClick={handleUpdatePointsClick}
+          setOpenNewUserPointsModal={setOpenNewUserPointsModal}
+        />
+      ) : null}
       <Modal
         open={openPointsModal}
         handleClose={() => setOpenPointsModal(false)}
@@ -172,9 +192,18 @@ const AdminDashboard = () => {
         title="Update Points Modal"
         className="w-[30%]"
       />
-      <div className="mt-40">
-        <Header />
-      </div>
+      <Modal
+        open={openNewUserModal}
+        handleClose={() => setOpenNewUserPointsModal(false)}
+        children={
+          <CreateUserForm
+            setOpenNewUserPointsModal={setOpenNewUserPointsModal}
+            fetchEmployeesData={fetchEmployeesData}
+          />
+        }
+        title="Create New User Modal"
+        className="w-[30%]"
+      />
     </>
   );
 };

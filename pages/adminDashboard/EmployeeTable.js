@@ -2,7 +2,11 @@ import React, { useState } from "react";
 import { Button, Input } from "../../components/common";
 import PropTypes from "prop-types";
 
-const EmployeeTable = ({ employeesData, handleUpdatePointsClick }) => {
+const EmployeeTable = ({
+  employeesData,
+  handleUpdatePointsClick,
+  setOpenNewUserPointsModal,
+}) => {
   const [employees, setEmployees] = useState(employeesData);
 
   const handleSearch = (value) => {
@@ -24,7 +28,7 @@ const EmployeeTable = ({ employeesData, handleUpdatePointsClick }) => {
   return (
     <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
       <div class="pb-1 bg-white ml-5 flex">
-        <div class="relative mt-1">
+        <div class="relative mb-1 w-[20%]">
           <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none pt-2">
             <svg
               class="w-4 h-4 text-gray-500 dark:text-gray-400 mb-1"
@@ -50,10 +54,18 @@ const EmployeeTable = ({ employeesData, handleUpdatePointsClick }) => {
           />
         </div>
         {employeesData && employeesData.length ? (
-          <div className="mt-7 ml-5 font-medium text-gray-900">
+          <div className="mt-auto mb-auto ml-5 font-medium text-gray-900">
             Total Users: {employeesData.length}
           </div>
         ) : null}
+        <Button
+          text="Create New User"
+          type="button"
+          onClick={() => {
+            setOpenNewUserPointsModal(true);
+          }}
+          className="absolute top-3 right-10"
+        />
       </div>
       <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
         <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
@@ -73,32 +85,34 @@ const EmployeeTable = ({ employeesData, handleUpdatePointsClick }) => {
           </tr>
         </thead>
         <tbody>
-          {employees.map((employee, index) => {
-            return (
-              <tr
-                key={index}
-                class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600"
-              >
-                <th
-                  scope="row"
-                  class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
-                >
-                  {employee.fullName}
-                </th>
-                <td class="px-6 py-4">{employee.email}</td>
-                <td class="px-6 py-4">{employee.points}</td>
-                <td class="flex items-center px-6 py-4 space-x-3">
-                  <Button
-                    text="Update Points"
-                    type="button"
-                    onClick={() => {
-                      handleUpdatePointsClick(employee);
-                    }}
-                  />
-                </td>
-              </tr>
-            );
-          })}
+          {employees && employees.length
+            ? employees.map((employee, index) => {
+                return (
+                  <tr
+                    key={index}
+                    class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600"
+                  >
+                    <th
+                      scope="row"
+                      class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+                    >
+                      {employee.fullName}
+                    </th>
+                    <td class="px-6 py-4">{employee.email}</td>
+                    <td class="px-6 py-4">{employee.points}</td>
+                    <td class="flex items-center px-6 py-4 space-x-3">
+                      <Button
+                        text="Update Points"
+                        type="button"
+                        onClick={() => {
+                          handleUpdatePointsClick(employee);
+                        }}
+                      />
+                    </td>
+                  </tr>
+                );
+              })
+            : null}
         </tbody>
       </table>
     </div>

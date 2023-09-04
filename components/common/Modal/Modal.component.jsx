@@ -14,7 +14,7 @@ const Modal = memo(
     }, [open]);
     return showModal ? (
       <>
-        <div className=" justify-center w-full h-full items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none">
+        <div className="justify-center w-full h-full items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none">
           <div className={classes}>
             <div className="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
               <div className="flex items-center justify-between p-5 border-b border-solid border-slate-200 rounded-t">
@@ -27,7 +27,7 @@ const Modal = memo(
                   x
                 </Text>
               </div>
-              <div className="relative p-4 flex-auto max-h-96 overflow-y-auto">
+              <div className="relative p-4 flex-auto overflow-y-auto">
                 {children}
               </div>
             </div>
