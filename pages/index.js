@@ -92,6 +92,13 @@ const LoginPage = () => {
         >
           Create Account
         </Text>
+        <Text
+          variant="hint"
+          className="mt-3 ml-32 !text-primaryText cursor-pointer"
+          onClick={() => router.push("resetPassword")}
+        >
+          Forgot Password
+        </Text>
       </div>
     </form>
   );

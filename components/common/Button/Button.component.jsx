@@ -8,7 +8,7 @@ const Button = ({ onClick, color, style, className = '', text = '', type = 'butt
     className
   );
   return (
-    <div class="flex space-x-2">
+    <div className="flex space-x-2">
       <button
         onClick={onClick}
         color={color}
