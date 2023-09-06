@@ -77,6 +77,9 @@ const EmployeeTable = ({
               Email
             </th>
             <th scope="col" className="px-6 py-3">
+              Employee ID
+            </th>
+            <th scope="col" className="px-6 py-3">
               Total Points
             </th>
             <th scope="col" className="px-6 py-3">
@@ -99,6 +102,7 @@ const EmployeeTable = ({
                       {employee.fullName}
                     </th>
                     <td className="px-6 py-4">{employee.email}</td>
+                    <td className="px-6 py-4">{employee.employeeId}</td>
                     <td className="px-6 py-4">{employee.points}</td>
                     <td className="flex items-center px-6 py-4 space-x-3">
                       <Button

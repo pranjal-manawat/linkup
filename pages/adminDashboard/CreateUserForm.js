@@ -8,7 +8,7 @@ import { toast } from "react-hot-toast";
 
 const CreateUserForm = ({setOpenNewUserPointsModal, fetchEmployeesData}) => {
   const [employeeEmails, setEmployeeEmails] = useState([]);
-  
+
   const signUpValidationSchema = yup.object().shape({
     fullName: yup.string().required("Full Name is required"),
     email: yup
@@ -27,6 +27,10 @@ const CreateUserForm = ({setOpenNewUserPointsModal, fetchEmployeesData}) => {
         message:
           "Password should be at least 8 characters. Should contain 1 uppercase, 1 lowercase, 1 special char",
       }),
+    employeeId: yup
+      .number()
+      .typeError("Employee ID is required")
+      .test("positive","Employee ID must be greater than 0", (value) => value > 0),
   });
 
   const {
@@ -39,12 +43,13 @@ const CreateUserForm = ({setOpenNewUserPointsModal, fetchEmployeesData}) => {
       fullName: "",
       email: "",
       password: "",
+      employeeId: null,
     },
     resolver: yupResolver(signUpValidationSchema),
   });
 
   const postSignupData = async (payload) => {
-    setOpenNewUserPointsModal(false)
+    setOpenNewUserPointsModal(false);
     try {
       const url = "http://localhost:5000/signup";
       const { success, error, data } = await postData(
@@ -56,12 +61,12 @@ const CreateUserForm = ({setOpenNewUserPointsModal, fetchEmployeesData}) => {
       if (success) {
         toast.success("User Created Successfully");
         console.log("Response ", data.message);
-        fetchEmployeesData()
+        fetchEmployeesData();
       } else {
-        toast.error("Error ",error);
+        toast.error("Error ", error);
       }
     } catch (error) {
-      toast.error("Error in posting signUp data",error);
+      toast.error("Error in posting signUp data", error);
     }
   };
 
@@ -84,11 +89,8 @@ const CreateUserForm = ({setOpenNewUserPointsModal, fetchEmployeesData}) => {
   return (
     <form
       onSubmit={handleSubmit((data) => postSignupData(data))}
-      className="p-5 pt-2"
+      className="p-4 pt-1"
     >
-      <div className="flex mb-5 justify-center">
-        <Text variant="h5">Add User Details</Text>
-      </div>
       <Input
         label="Full Name"
         type="text"
@@ -106,6 +108,15 @@ const CreateUserForm = ({setOpenNewUserPointsModal, fetchEmployeesData}) => {
         {...register("email")}
         itemRequired
         errorMessage={errors?.email?.message}
+      />
+      <Input
+        label="Employee Id"
+        type="number"
+        placeholder="Enter value"
+        className=""
+        {...register("employeeId")}
+        itemRequired
+        errorMessage={errors?.employeeId?.message}
       />
       <Input
         label="Password"

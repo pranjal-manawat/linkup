@@ -201,7 +201,7 @@ const AdminDashboard = () => {
             fetchEmployeesData={fetchEmployeesData}
           />
         }
-        title="Create New User Modal"
+        title="Add User Details"
         className="w-[30%]"
       />
     </>

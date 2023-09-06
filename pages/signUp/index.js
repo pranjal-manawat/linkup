@@ -10,7 +10,7 @@ import { toast } from "react-hot-toast";
 const SignUpPage = () => {
   const [employeeEmails, setEmployeeEmails] = useState([]);
   const router = useRouter();
-  
+
   const signUpValidationSchema = yup.object().shape({
     fullName: yup.string().required("Full Name is required"),
     email: yup
@@ -29,6 +29,14 @@ const SignUpPage = () => {
         message:
           "Password should be at least 8 characters. Should contain 1 uppercase, 1 lowercase, 1 special char",
       }),
+    employeeId: yup
+      .number()
+      .typeError("Employee ID is required")
+      .test(
+        "positive",
+        "Employee ID must be greater than 0",
+        (value) => value > 0
+      ),
   });
 
   const {
@@ -41,6 +49,7 @@ const SignUpPage = () => {
       fullName: "",
       email: "",
       password: "",
+      employeeId: null,
     },
     resolver: yupResolver(signUpValidationSchema),
   });
@@ -58,10 +67,10 @@ const SignUpPage = () => {
         console.log("Response ", data.message);
         router.push("/");
       } else {
-        toast.error("Error ",error);
+        toast.error("Error ", error);
       }
     } catch (error) {
-      toast.error("Error in posting signUp data",error);
+      toast.error("Error in posting signUp data", error);
     }
   };
 
@@ -106,6 +115,15 @@ const SignUpPage = () => {
         {...register("email")}
         itemRequired
         errorMessage={errors?.email?.message}
+      />
+      <Input
+        label="Employee Id"
+        type="number"
+        placeholder="Enter value"
+        className=""
+        {...register("employeeId")}
+        itemRequired
+        errorMessage={errors?.employeeId?.message}
       />
       <Input
         label="Password"
