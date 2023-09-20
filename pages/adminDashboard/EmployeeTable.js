@@ -103,7 +103,7 @@ const EmployeeTable = ({
                     </th>
                     <td className="px-6 py-4">{employee.email}</td>
                     <td className="px-6 py-4">{employee.employeeId}</td>
-                    <td className="px-6 py-4">{employee.points}</td>
+                    <td className="px-6 py-4">{employee.rewardPoints}</td>
                     <td className="flex items-center px-6 py-4 space-x-3">
                       <Button
                         text="Update Points"

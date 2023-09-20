@@ -8,13 +8,13 @@ import { getData } from "../../utils/rest";
 const HomePage = () => {
   const router = useRouter();
   const { data: session } = useSession();
-  const userId = session?.user?.details?.Id || null;
+  const employeeId = session?.user?.details?.employeeId || null;
   const [points, setPoints] = useState(null);
   const [pointsHistory, setPointsHistory] = useState([]);
 
-  const fetchPoints = async (userId) => {
+  const fetchPoints = async (employeeId) => {
     try {
-      const url = `http://localhost:5000/points?userId=${userId}`;
+      const url = `http://localhost:5000/points?employeeId=${employeeId}`;
       const { data } = await getData(url);
       const points = data?.data;
       setPoints(points);
@@ -23,9 +23,9 @@ const HomePage = () => {
     }
   };
 
-  const fetchPointsHistory = async (userId) => {
+  const fetchPointsHistory = async (employeeId) => {
     try {
-      const url = `http://localhost:5000/pointsHistory?userId=${userId}`;
+      const url = `http://localhost:5000/pointsHistory?employeeId=${employeeId}`;
       const { data } = await getData(url);
       const pointsHistory = data?.data || [];
       setPointsHistory(pointsHistory);
@@ -35,9 +35,9 @@ const HomePage = () => {
   };
 
   useEffect(() => {
-    fetchPoints(userId);
-    fetchPointsHistory(userId);
-  }, [userId]);
+    fetchPoints(employeeId);
+    fetchPointsHistory(employeeId);
+  }, [employeeId]);
 
   if (!session) {
     return (

@@ -34,7 +34,7 @@ const AdminDashboard = () => {
 
   const handleUpdatePointsClick = (data) => {
     setOpenPointsModal(true);
-    setActiveUserId(data.Id);
+    setActiveUserId(data.employeeId);
   };
 
   const PointsForm = () => {
@@ -105,13 +105,13 @@ const AdminDashboard = () => {
       if (e.nativeEvent.submitter.innerHTML === "Add Points")
         await addPoints({
           ...data,
-          userId: activeUserId,
+          employeeId: activeUserId,
           createdByUser: session?.user?.details?.email,
         });
       else if (e.nativeEvent.submitter.innerHTML === "Remove Points")
         await removePoints({
           ...data,
-          userId: activeUserId,
+          employeeId: activeUserId,
           createdByUser: session?.user?.details?.email,
         });
     };
