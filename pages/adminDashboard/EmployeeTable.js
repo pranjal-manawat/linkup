@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { Button, Input } from "../../components/common";
 import PropTypes from "prop-types";
+import { FaFileExcel } from "react-icons/fa";
+import * as XLSX from 'xlsx';
 
 const EmployeeTable = ({
   employeesData,
@@ -23,6 +25,13 @@ const EmployeeTable = ({
         emp.email.toLowerCase().includes(value.toLowerCase())
     );
     setEmployees(updatedEmployees);
+  };
+
+  const handleExportClick = () => {
+    const ws = XLSX.utils.json_to_sheet(employeesData);
+    const wb = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(wb, ws, "Sheet1");
+    XLSX.writeFile(wb, "EmployeePoints.xlsx");
   };
 
   return (
@@ -58,6 +67,10 @@ const EmployeeTable = ({
             Total Users: {employeesData.length}
           </div>
         ) : null}
+        <FaFileExcel
+          className="absolute w-[30px] h-[30px] top-[20px] left-[33%] cursor-pointer"
+          onClick={handleExportClick}
+        />
         <Button
           text="Create New User"
           type="button"
@@ -71,13 +84,13 @@ const EmployeeTable = ({
         <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
           <tr>
             <th scope="col" className="px-6 py-3">
+            Team Member ID
+            </th>
+            <th scope="col" className="px-6 py-3">
               Full Name
             </th>
             <th scope="col" className="px-6 py-3">
               Email
-            </th>
-            <th scope="col" className="px-6 py-3">
-              Employee ID
             </th>
             <th scope="col" className="px-6 py-3">
               Total Points
@@ -99,10 +112,10 @@ const EmployeeTable = ({
                       scope="row"
                       className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
                     >
-                      {employee.fullName}
+                      {employee.employeeId}
                     </th>
+                    <td className="px-6 py-4">{employee.fullName}</td>
                     <td className="px-6 py-4">{employee.email}</td>
-                    <td className="px-6 py-4">{employee.employeeId}</td>
                     <td className="px-6 py-4">{employee.rewardPoints}</td>
                     <td className="flex items-center px-6 py-4 space-x-3">
                       <Button

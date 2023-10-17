@@ -56,12 +56,12 @@ const LoginPage = () => {
       className="mt-5 max-w-[30%] ml-[35%] p-5 border-2 border-paperSecondary"
     >
       <div className="flex justify-center">
-        <Text variant="h4">Login</Text>
+        <Text variant="h4">LogIn</Text>
       </div>
       <Input
         label="Email"
         type="text"
-        placeholder="Enter value"
+        placeholder="Enter Email"
         className=""
         {...register("email")}
         itemRequired
@@ -69,8 +69,8 @@ const LoginPage = () => {
       />
       <Input
         label="Password"
-        type="text"
-        placeholder="Enter value"
+        type="password"
+        placeholder="Enter Password"
         className=""
         {...register("password")}
         itemRequired
@@ -81,7 +81,7 @@ const LoginPage = () => {
         type="submit"
         className="ml-auto mr-auto mt-2 w-full"
       />
-      <div className="inline-flex">
+      {/* <div className="inline-flex">
         <Text variant="hint" className="mt-3">
           New User?
         </Text>
@@ -92,14 +92,14 @@ const LoginPage = () => {
         >
           Create Account
         </Text>
-        {/* <Text
+        <Text
           variant="hint"
           className="mt-3 ml-32 !text-primaryText cursor-pointer"
           onClick={() => router.push("resetPassword")}
         >
           Forgot Password
-        </Text> */}
-      </div>
+        </Text>
+      </div> */}
     </form>
   );
 };
