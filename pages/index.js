@@ -37,7 +37,7 @@ const LoginPage = () => {
     });
 
     if (status.ok) {
-      const url = `http://localhost:5000/employeeRecord?email=${payload.email}`;
+      const url = `http://192.168.101.254:5000/employeeRecord?email=${payload.email}`;
       const { data } = await getData(url);
       const employeeData = data?.data
       if(!employeeData) return

@@ -11,7 +11,7 @@ export default NextAuth({
           email: credentials.email,
           password: credentials.password,
         };
-        const url = "http://localhost:5000/login";
+        const url = "http://192.168.101.254:5000/login";
         try {
           const { data, success, error } = await postData(url, payload);
 

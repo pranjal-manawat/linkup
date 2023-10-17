@@ -22,7 +22,7 @@ const AdminDashboard = () => {
   const fetchEmployeesData = async () => {
     try {
       setLoading(true);
-      const url = "http://localhost:5000/allEmployeeRecords";
+      const url = "http://192.168.101.254:5000/allEmployeeRecords";
       const { data } = await getData(url);
       const employeeRecords = data?.data || [];
       setEmployeesData(employeeRecords);
@@ -67,7 +67,7 @@ const AdminDashboard = () => {
     const addPoints = async (payload) => {
       setOpenPointsModal(false);
       try {
-        const url = "http://localhost:5000/addPoints";
+        const url = "http://192.168.101.254:5000/addPoints";
         const { success, error, data } = await postData(url, payload, {});
 
         if (success) {
@@ -85,7 +85,7 @@ const AdminDashboard = () => {
     const removePoints = async (payload) => {
       setOpenPointsModal(false);
       try {
-        const url = "http://localhost:5000/removePoints";
+        const url = "http://192.168.101.254:5000/removePoints";
         const { success, error, data } = await postData(url, payload, {});
 
         if (success) {
@@ -189,7 +189,7 @@ const AdminDashboard = () => {
         open={openPointsModal}
         handleClose={() => setOpenPointsModal(false)}
         children={<PointsForm activeUserId={activeUserId} />}
-        title="Update Points Modal"
+        title="Update Points"
         className="w-[30%]"
       />
       <Modal

@@ -14,7 +14,7 @@ const HomePage = () => {
 
   const fetchPoints = async (employeeId) => {
     try {
-      const url = `http://localhost:5000/points?employeeId=${employeeId}`;
+      const url = `http://192.168.101.254:5000/points?employeeId=${employeeId}`;
       const { data } = await getData(url);
       const points = data?.data;
       setPoints(points);
@@ -25,7 +25,7 @@ const HomePage = () => {
 
   const fetchPointsHistory = async (employeeId) => {
     try {
-      const url = `http://localhost:5000/pointsHistory?employeeId=${employeeId}`;
+      const url = `http://192.168.101.254:5000/pointsHistory?employeeId=${employeeId}`;
       const { data } = await getData(url);
       const pointsHistory = data?.data || [];
       setPointsHistory(pointsHistory);

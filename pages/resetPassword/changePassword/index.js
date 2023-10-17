@@ -42,7 +42,7 @@ const ChangePassword = () => {
         email: email,
         password: submittedData.password
       }
-      const url = "http://localhost:5000/resetPassword";
+      const url = "http://192.168.101.254:5000/resetPassword";
       const { success, error, data } = await postData(
         url,
         payload,
