@@ -27,9 +27,9 @@ const CreateUserForm = ({setOpenNewUserPointsModal, fetchEmployeesData}) => {
     password: yup
       .string()
       .required("Password is required")
-      .matches(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}$/, {
+      .matches(/^(?=.*\d)(?=.*[A-Z]).{8,}$/, {
         message:
-          "Password should be at least 8 characters. Should contain 1 uppercase, 1 lowercase, 1 special char",
+          "Password should be at least 8 characters. Should contain 1 uppercase, 1 special char",
       }),
   });
 

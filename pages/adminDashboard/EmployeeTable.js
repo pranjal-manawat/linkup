@@ -7,6 +7,7 @@ import * as XLSX from 'xlsx';
 const EmployeeTable = ({
   employeesData,
   handleUpdatePointsClick,
+  handlePointsHistoryClick,
   setOpenNewUserPointsModal,
 }) => {
   const [employees, setEmployees] = useState(employeesData);
@@ -95,7 +96,7 @@ const EmployeeTable = ({
             <th scope="col" className="px-6 py-3">
               Total Points
             </th>
-            <th scope="col" className="px-6 py-3">
+            <th scope="col" className="py-3">
               Action
             </th>
           </tr>
@@ -117,12 +118,19 @@ const EmployeeTable = ({
                     <td className="px-6 py-4">{employee.fullName}</td>
                     <td className="px-6 py-4">{employee.email}</td>
                     <td className="px-6 py-4">{employee.rewardPoints}</td>
-                    <td className="flex items-center px-6 py-4 space-x-3">
+                    <td className="flex items-center py-4 space-x-3">
                       <Button
                         text="Update Points"
                         type="button"
                         onClick={() => {
                           handleUpdatePointsClick(employee);
+                        }}
+                      />
+                      <Button
+                        text="Points History"
+                        type="button"
+                        onClick={() => {
+                          handlePointsHistoryClick(employee);
                         }}
                       />
                     </td>
