@@ -5,6 +5,8 @@ import Text from "../Text";
 import { signOut } from "next-auth/react";
 import { useRouter } from "next/router";
 import { useSession } from "next-auth/react";
+import Image from "next/image";
+import logo from '../../../images/IB_logo_black.jpg'; 
 
 const Header = ({ setOpenChangePasswordPopup }) => {
   const router = useRouter();
@@ -22,11 +24,11 @@ const Header = ({ setOpenChangePasswordPopup }) => {
   };
 
   return (
-    <div className="flex pl-7 pt-2 pb-2 relative border-b-2 mb-2">
-      <img
-        src="https://linkup.eternussolutions.com/_layouts/15/images/LinkupImages/eternus.png"
+    <div className="flex pl-7 pt-2 pb-1 relative border-b-2 mb-2">
+      <Image
+        src={logo}
         height="40"
-        width="120"
+        width="80"
         alt="Infobeans Logo"
       />
       <Text variant="h5" className="mt-auto mb-auto ml-10">

@@ -56,7 +56,7 @@ const SignUpPage = () => {
 
   const postSignupData = async (payload) => {
     try {
-      const url = "http://192.168.101.254:5000/signup";
+      const url = "http://192.168.100.170:5000/signup";
       const { success, error, data } = await postData(
         url,
         { ...payload, isAdmin: "false" },
@@ -76,7 +76,7 @@ const SignUpPage = () => {
 
   const fetchEmployeeEmails = async () => {
     try {
-      const url = "http://192.168.101.254:5000/allEmployeeRecords";
+      const url = "http://192.168.100.170:5000/allEmployeeRecords";
       const { data } = await getData(url);
       const employeeRecords = data?.data || [];
       const employeeEmails = employeeRecords.map((emp) => emp.email);
