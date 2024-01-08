@@ -25,7 +25,7 @@ const AdminDashboard = () => {
   const fetchEmployeesData = async () => {
     try {
       setLoading(true);
-      const url = "http://192.168.100.170:5000/allEmployeeRecords";
+      const url = "http://192.168.100.181:5000/allEmployeeRecords";
       const { data } = await getData(url);
       const employeeRecords = data?.data || [];
       setEmployeesData(employeeRecords);
@@ -37,7 +37,7 @@ const AdminDashboard = () => {
 
   const fetchPointsHistory = async (employeeId) => {
     try {
-      const url = `http://192.168.100.170:5000/pointsHistory?employeeId=${employeeId}`;
+      const url = `http://192.168.100.181:5000/pointsHistory?employeeId=${employeeId}`;
       const { data } = await getData(url);
       const pointsHistory = data?.data || [];
       console.log("pointsHistory ", pointsHistory);
@@ -88,7 +88,7 @@ const AdminDashboard = () => {
     const addPoints = async (payload) => {
       setOpenPointsModal(false);
       try {
-        const url = "http://192.168.100.170:5000/addPoints";
+        const url = "http://192.168.100.181:5000/addPoints";
         const { success, error, data } = await postData(url, payload, {});
 
         if (success) {
@@ -106,7 +106,7 @@ const AdminDashboard = () => {
     const removePoints = async (payload) => {
       setOpenPointsModal(false);
       try {
-        const url = "http://192.168.100.170:5000/removePoints";
+        const url = "http://192.168.100.181:5000/removePoints";
         const { success, error, data } = await postData(url, payload, {});
 
         if (success) {
