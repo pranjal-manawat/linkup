@@ -35,9 +35,9 @@ const LoginPage = () => {
       password: payload.password,
       callbackUrl: "/adminDashboard",
     });
-
+    
     if (status.ok) {
-      const url = `http://192.168.100.181:5000/employeeRecord?email=${payload.email}`;
+      const url = `http://esplfait00228:5000/employeeRecord?email=${payload.email}`;
       const { data } = await getData(url);
       const employeeData = data?.data
       if(!employeeData) return
