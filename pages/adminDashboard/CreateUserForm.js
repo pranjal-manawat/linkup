@@ -51,7 +51,7 @@ const CreateUserForm = ({setOpenNewUserPointsModal, fetchEmployeesData}) => {
   const postSignupData = async (payload) => {
     setOpenNewUserPointsModal(false);
     try {
-      const url = "http://esplfait00228:5000/signup";
+      const url = "http://43.254.31.11:5000/signup";
       const { success, error, data } = await postData(
         url,
         { ...payload, isAdmin: "false" },
@@ -72,7 +72,7 @@ const CreateUserForm = ({setOpenNewUserPointsModal, fetchEmployeesData}) => {
 
   const fetchEmployeeEmails = async () => {
     try {
-      const url = "http://esplfait00228:5000/allEmployeeRecords";
+      const url = "http://43.254.31.11:5000/allEmployeeRecords";
       const { data } = await getData(url);
       const employeeRecords = data?.data || [];
       const employeeEmails = employeeRecords.map((emp) => emp.email);

@@ -37,7 +37,7 @@ const LoginPage = () => {
     });
     
     if (status.ok) {
-      const url = `http://esplfait00228:5000/employeeRecord?email=${payload.email}`;
+      const url = `http://43.254.31.11:5000/employeeRecord?email=${payload.email}`;
       const { data } = await getData(url);
       const employeeData = data?.data
       if(!employeeData) return

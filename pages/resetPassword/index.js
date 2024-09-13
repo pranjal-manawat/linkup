@@ -38,7 +38,7 @@ const ResetPassword = () => {
 
   const fetchEmployeeEmails = async () => {
     try {
-      const url = "http://esplfait00228:5000/allEmployeeRecords";
+      const url = "http://43.254.31.11:5000/allEmployeeRecords";
       const { data } = await getData(url);
       const employeeRecords = data?.data || [];
       const employeeEmails = employeeRecords.map((emp) => emp.email);

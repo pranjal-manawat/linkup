@@ -20,7 +20,7 @@ const HomePage = () => {
 
   const fetchPoints = async (employeeId) => {
     try {
-      const url = `http://esplfait00228:5000/points?employeeId=${employeeId}`;
+      const url = `http://43.254.31.11:5000/points?employeeId=${employeeId}`;
       const { data } = await getData(url);
       const points = data?.data;
       setPoints(points);
@@ -31,7 +31,7 @@ const HomePage = () => {
 
   const fetchPointsHistory = async (employeeId) => {
     try {
-      const url = `http://esplfait00228:5000/pointsHistory?employeeId=${employeeId}`;
+      const url = `http://43.254.31.11:5000/pointsHistory?employeeId=${employeeId}`;
       const { data } = await getData(url);
       const pointsHistory = data?.data || [];
       setPointsHistory(pointsHistory);
@@ -81,7 +81,7 @@ const HomePage = () => {
           oldPassword: submittedData.oldPassword,
           newPassword: submittedData.newPassword,
         };
-        const url = "http://esplfait00228:5000/resetPassword";
+        const url = "http://43.254.31.11:5000/resetPassword";
         const { success, error, data } = await postData(url, payload, {});
         setOpenChangePasswordPopup(false);
         if (success) {

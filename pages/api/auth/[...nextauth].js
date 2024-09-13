@@ -11,7 +11,7 @@ export default NextAuth({
           email: credentials.email,
           password: credentials.password,
         };
-        const url = "http://esplfait00228:5000/login";
+        const url = "http://43.254.31.11:5000/login";
         try {
           const { data, success, error } = await postData(url, payload);
 
